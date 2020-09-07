@@ -14,7 +14,7 @@ class Solver:
         self.y0 = y0
         self.y_left = y_left
         self.y_right = y_right
-        self.y_right = y_prime
+        self.y_prime = y_prime
         self.step = step
         # for delta step:
         self.y_minus_coef = -self.beta / (2*self.step) + 1/(self.step ** 2)
