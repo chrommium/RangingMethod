@@ -16,6 +16,7 @@ class Solver:
         self.y_right = y_right
         self.y_right = y_prime
         self.step = step
+        # for delta step:
         self.y_minus_coef = -self.beta / (2*self.step) + 1/(self.step ** 2)
         self.y_plus_coef = self.beta / (2*self.step) + 1/(self.step ** 2)
         self.y_coef = -2/(self.step ** 2) + (self.omg ** 2)
@@ -66,32 +67,32 @@ class Solver:
 
 def euclid(d1, d2):
     return math.sqrt(d1 ** 2 + d2 ** 2)
-# def Newton
 
 
-beta = 0.5
-omg = 5
-x0 = 0
-x_left = -2
-x_right = 2
-y0 = 0
-y_left = 1
-y_right = 1
-y_prime = 1
-step = 0.1
+if __name__ == "__main__":
+    beta = 0.5
+    omg = 5
+    x0 = 0
+    x_left = -2
+    x_right = 2
+    y0 = 0
+    y_left = 1
+    y_right = 1
+    y_prime = 1
+    step = 0.1
 
-sol = Solver(beta=beta, omg=omg, x0=x0, x_left=x_left, x_right=x_right,
-             y0=y0, y_left=y_left, y_right=y_right, y_prime=y_prime, step=step)
+    sol = Solver(beta=beta, omg=omg, x0=x0, x_left=x_left, x_right=x_right,
+                y0=y0, y_left=y_left, y_right=y_right, y_prime=y_prime, step=step)
 
-goal_old = sol.Newton_step(y0, y_prime)
-y_res, y_prime_res = sol.Newton_GD(tau=0.05, y0=y0, goal_old=goal_old, y_prime=y_prime, eps=0.01)
+    goal_old = sol.Newton_step(y0, y_prime)
+    y_res, y_prime_res = sol.Newton_GD(tau=0.05, y0=y0, goal_old=goal_old, y_prime=y_prime, eps=0.01)
 
-values = []
-y_left_res, left_array = sol.left_shot(y_res, y_res+y_prime_res*step, x0, values=[])
-y_right_res, right_array = sol.right_shot(y_res, y_res+y_prime_res*step, x0, values=[])
+    values = []
+    y_left_res, left_array = sol.left_shot(y_res, y_res+y_prime_res*step, x0, values=[])
+    y_right_res, right_array = sol.right_shot(y_res, y_res+y_prime_res*step, x0, values=[])
 
-# print(left_array)
-left_array.reverse()
-all_array = left_array+right_array
-plt.plot(all_array)
-plt.show()
+    # print(left_array)
+    left_array.reverse()
+    all_array = left_array+right_array
+    plt.plot(all_array)
+    plt.show()
