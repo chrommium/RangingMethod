@@ -1,2 +1,2 @@
-# RangingMethod
+# Shooting method
 Solver for ODE
